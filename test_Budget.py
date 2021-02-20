@@ -49,15 +49,18 @@ class BudgetCalculator(object):
                 month_days = calendar.monthrange(iterdate.year, iterdate.month)[1]
                 months[month] = [1, month_days]
 
+        result = 0
         for budget in self.budgets:
             if budget.year_month in months:
+                m = months[budget.year_month]
+                result += budget.amount*(m[0]/m[1])
                 months[budget.year_month].append(budget.amount)
 
-        result = 0
-
-        for m in months.values():
-            if len(m) == 3:
-                result += m[2]*(m[0]/m[1])
+        # result = 0
+        #
+        # for m in months.values():
+        #     if len(m) == 3:
+        #         result += m[2]*(m[0]/m[1])
 
         return result
 
